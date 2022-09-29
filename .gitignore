@@ -1,0 +1,7 @@
+.clang-format
+.clang-tidy
+book.o
+clothing.o
+movie.o
+product_parser.o
+util.o
