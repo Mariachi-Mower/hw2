@@ -9,7 +9,7 @@
  *  Both functions should run in time O(n*log(n)) and not O(n^2)
  */
 template <typename T>
-std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
+typename std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
 {
   typename std::set<T> done;
   //creates a new empty set;

@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <vector>
 #include "product.h"
-#include <fstream>
 
 class book : public Product
 {
@@ -26,6 +25,8 @@ class book : public Product
     std::string displayString() const;
 
     void dump(std::ostream& os) const;
+
+    bool isMatch(std::vector<std::string>& searchTerms) const;
 
   private:
     std::string ISBN_;

@@ -1,6 +1,7 @@
 #include <set>
 #include <vector>
 #include <sstream>
+#include <iomanip>
 #include "book.h"
 #include "util.h"
 
@@ -11,6 +12,9 @@ book::book(const std::string category, const std::string name, double price, int
     author_(author)
 {
 
+}
+
+book::~book(){
 }
 
 std::set<std::string> book::keywords() const{
@@ -33,5 +37,9 @@ std::string book::displayString() const{
 }
 
 void book::dump(std::ostream& os) const{
-    os << category_ << "\n" << name_ << "\n" << std::to_string(price_) << "\n" << std::to_string(qty_) << "\n" << ISBN_ << "\n" << author_ << "\n";
+    os << category_ << "\n" << name_ << "\n" << std::setprecision(2) << std::fixed << price_ << "\n" << std::to_string(qty_) << "\n" << ISBN_ << "\n" << author_ << "\n";
+}
+
+bool book::isMatch(std::vector<std::string>& searchTerms) const{
+    return false;
 }

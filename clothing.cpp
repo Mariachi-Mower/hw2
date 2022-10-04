@@ -2,6 +2,7 @@
 #include <set>
 #include <algorithm>
 #include <vector>
+#include <iomanip>
 #include "clothing.h"
 #include "product.h"
 #include "util.h"
@@ -13,6 +14,10 @@ clothing::clothing(const std::string category, const std::string name, double pr
     brand_(brand)
 {
 
+}
+
+clothing::~clothing(){
+    
 }
 
 std::set<std::string> clothing::keywords() const{
@@ -33,5 +38,9 @@ std::string clothing::displayString() const{
 
 
 void clothing::dump(std::ostream& os) const{
-    os << category_ << "\n" << name_ << "\n" << std::to_string(price_) << "\n" << std::to_string(qty_) << "\n" << size_ << "\n" << brand_ << "\n";
+    os << category_ << "\n" << name_ << "\n" << std::setprecision(2) << std::fixed << price_ << "\n" << std::to_string(qty_) << "\n" << size_ << "\n" << brand_ << "\n";
+}
+
+bool clothing::isMatch(std::vector<std::string>& searchTerms) const{
+    return false;
 }

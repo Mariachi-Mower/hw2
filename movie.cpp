@@ -2,9 +2,9 @@
 #include <set>
 #include <algorithm>
 #include <vector>
+#include <iomanip>
 #include "movie.h"
 #include "util.h"
-
 
 movie::movie(const std::string category, const std::string name, double price, int qty, const std::string genre, const std::string rating) :
     Product(category, name, price, qty),
@@ -12,6 +12,9 @@ movie::movie(const std::string category, const std::string name, double price, i
     rating_(rating)
 {
 
+}
+
+movie::~movie(){
 }
 
 std::set<std::string> movie::keywords() const{
@@ -30,5 +33,9 @@ std::string movie::displayString() const{
 }
 
 void movie::dump(std::ostream& os) const{
-    os << category_ << "\n" << name_ << "\n" << std::to_string(price_) << "\n" << std::to_string(qty_) << "\n" << genre_ << "\n" << rating_ << "\n";
+    os << category_ << "\n" << name_ << "\n" << std::setprecision(2) << std::fixed << price_ << "\n" << std::to_string(qty_) << "\n" << genre_ << "\n" << rating_ << "\n";
+}
+
+bool movie::isMatch(std::vector<std::string>& searchTerms) const{
+    return false;
 }

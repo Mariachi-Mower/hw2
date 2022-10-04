@@ -19,6 +19,7 @@ class movie: public Product
 
     void dump(std::ostream& os) const;
 
+    bool isMatch(std::vector<std::string>& searchTerms) const;
     private:
         std::string genre_;
         std::string rating_;

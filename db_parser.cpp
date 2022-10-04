@@ -8,6 +8,7 @@
 #include <locale>
 #include "db_parser.h"
 #include "util.h"
+#include "dataBase.h"
 
 
 using namespace std;
@@ -32,7 +33,7 @@ void DBParser::addSectionParser(const std::string& sectionName,
 {
     parsers_.insert(make_pair(sectionName, parser));
 }
-bool DBParser::parse(string db_filename, DataStore& ds)
+bool DBParser::parse(string db_filename, DataBase& ds)
 {
 #ifdef DEBUG
     cout << "Starting parsing" << endl;
@@ -41,7 +42,6 @@ bool DBParser::parse(string db_filename, DataStore& ds)
     if(ifile.fail()) {
         return true;
     }
-
     lineno_ = 1;
     int startLineNo;
     string line;
@@ -127,7 +127,7 @@ void ProductSectionParser::addProductParser(ProductParser* p)
 
 bool ProductSectionParser::parse(
     std::istream& is,
-    DataStore& ds,
+    DataBase& ds,
     int& lineno,
     std::string& errorMsg)
 {
@@ -185,7 +185,7 @@ UserSectionParser::UserSectionParser()
 }
 bool UserSectionParser::parse(
     std::istream& is,
-    DataStore& ds,
+    DataBase& ds,
     int& lineno,
     std::string& errorMsg)
 {
@@ -206,7 +206,7 @@ bool UserSectionParser::parse(
 }
 User* UserSectionParser::parseUser(
     std::istream& is,
-    DataStore& ds,
+    DataBase& ds,
     std::string& errorMsg)
 {
     string username;
@@ -234,4 +234,3 @@ void UserSectionParser::reportItemsRead(std::ostream& os)
 {
     os << "Read " << numRead_ << " users" << endl;
 }
-

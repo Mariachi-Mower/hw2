@@ -9,14 +9,28 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "dataBase.h"
+
+//List of Tasks:
+//implement viewcart
+//  derive an amazon user with a deque of product*
+//  make a derived dump implementation to iterate through and dump cart.
+//  
+//implement addUser
 
 using namespace std;
+
 struct ProdNameSorter {
     bool operator()(Product* p1, Product* p2) {
         return (p1->getName() < p2->getName());
     }
 };
+
 void displayProducts(vector<Product*>& hits);
+
+void displayCart(std::vector<Product*>& cart);//function to display the contents of a user's cart.
+
+
 
 int main(int argc, char* argv[])
 {
@@ -29,7 +43,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    DataBase ds;
 
 
 
@@ -99,11 +113,44 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
-
-
-
-
+            else if( cmd == "ADD"){
+                std::string username;
+                int index;
+                if((ss >> username >> index)){
+                    
+                    if(index <= 0 || index > (int)hits.size()){
+                        cout << "invalid request" << endl;
+                        continue;
+                    }
+                    
+                    ds.addToCart(username, index, hits);
+                }
+                else{
+                    cout << "Invalid request" << endl;
+                    //return 3;
+                }
+            }
+            else if( cmd == "VIEWCART"){
+                string username;
+                if((ss >> username)){
+                    std::vector<Product*> cart_ = ds.viewCart(username);
+                    displayCart(cart_);
+                }
+                else{
+                    cout << "Invalid request" << endl;
+                }
+            }
+            else if( cmd == "BUYCART"){
+                string username;
+                if((ss >> username)){
+                    ds.buyCart(username);
+                    std::vector<Product*> cart_ = ds.viewCart(username);
+                    displayCart(cart_);
+                }
+                else{
+                    cout << "Invalid request" << endl;
+                }
+            }
             else {
                 cout << "Unknown command" << endl;
             }
@@ -126,5 +173,21 @@ void displayProducts(vector<Product*>& hits)
         cout << (*it)->displayString() << endl;
         cout << endl;
         resultNo++;
+    }
+} 
+
+
+void displayCart(std::vector<Product*>& cart){
+    //this function takes the vector produced by buyCart
+    if(cart.begin() == cart.end()){
+        cout << "Cart Empty" << endl;
+        return;
+    }
+    vector<Product*>::iterator it = cart.begin();
+    int x = 1;
+    for(; it != cart.end(); it++){
+        cout << "Item " << x << ":   ";
+        cout << (*it)->displayString() << endl << endl;
+        x++;
     }
 }

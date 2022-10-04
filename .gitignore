@@ -5,3 +5,10 @@ clothing.o
 movie.o
 product_parser.o
 util.o
+amazon
+amazon.o
+auser.o
+dataBase.o
+db_parser.o
+product.o
+user.o
