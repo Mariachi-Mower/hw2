@@ -164,11 +164,13 @@ void displayProducts(vector<Product*>& hits)
 {
     int resultNo = 1;
     if (hits.begin() == hits.end()) {
+        //iterates through vector of Products that fit the terms.
     	cout << "No results found!" << endl;
     	return;
     }
     std::sort(hits.begin(), hits.end(), ProdNameSorter());
     for(vector<Product*>::iterator it = hits.begin(); it != hits.end(); ++it) {
+        //prints out each result.
         cout << "Hit " << setw(3) << resultNo << endl;
         cout << (*it)->displayString() << endl;
         cout << endl;

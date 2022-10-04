@@ -12,7 +12,7 @@
 #include "user.h"
 #include "auser.h"
 
-
+//database derived from datastore.
 class DataBase : public DataStore
 {
 public:

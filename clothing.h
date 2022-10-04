@@ -6,6 +6,7 @@
 #include <vector>
 #include "product.h"
 
+//clothing product derived from product with a size and brand.
 class clothing : public Product
 {
     public:

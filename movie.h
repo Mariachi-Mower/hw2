@@ -7,6 +7,8 @@
 #include "product.h"
 #include <fstream>
 
+
+//movie derived from the product class containing a genre and rating.
 class movie: public Product
 {
     public:

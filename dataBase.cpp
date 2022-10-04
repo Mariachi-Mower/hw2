@@ -17,14 +17,17 @@ DataBase::DataBase(){
 DataBase::~DataBase(){
     std::set<User*>::iterator it = Us.begin();
     for(;it != Us.end(); it++){
+        //deletes all pointers to users from parse
         delete *it;
     }
     std::set<AUser*>::iterator at = users_.begin();
     for(;at != users_.end(); at++){
+        //deletes all dynamically allocated amazon users.
         delete *at;
     }
     std::map<Product*, std::set<std::string>>::iterator pt = products_.begin();
     for(;pt != products_.end(); pt++){
+        //deletes all dynamically allocated products.
         delete pt->first;
     }
     //destructor for database

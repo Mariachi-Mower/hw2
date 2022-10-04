@@ -6,6 +6,8 @@
 #include <vector>
 #include "product.h"
 
+
+//book product derived from product with an ISBN and author.
 class book : public Product
 {
   public:

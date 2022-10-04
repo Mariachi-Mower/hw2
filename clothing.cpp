@@ -21,6 +21,8 @@ clothing::~clothing(){
 }
 
 std::set<std::string> clothing::keywords() const{
+    //gets the set containing every key word's products;
+    //merges the sets together with set union.
     std::set<std::string> final;
     std::set<std::string> temp = parseStringToWords(name_);
     final = setUnion(final, temp);

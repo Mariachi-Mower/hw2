@@ -132,6 +132,7 @@ std::string ProductBookParser::categoryID()
  */
 Product* ProductBookParser::makeProduct()
 {
+    //creates a dynamically allocated book from the parsed data.
     book* final = new book("book", prodName_, price_, qty_, isbn_, author_);
     return final;
 }
@@ -187,6 +188,7 @@ std::string ProductClothingParser::categoryID()
  */
 Product* ProductClothingParser::makeProduct()
 {
+    //creates a dynamicaly allocated clothing from the parsed data.
     clothing* final = new clothing("clothing", prodName_, price_, qty_, size_, brand_);
     return final;
 }
@@ -246,6 +248,7 @@ std::string ProductMovieParser::categoryID()
  */
 Product* ProductMovieParser::makeProduct()
 {
+    //creates a dynamically allocated movie from the parsed data.
     movie* final = new movie("movie", prodName_, price_, qty_, genre_, rating_);
     return final;
 }

@@ -14,8 +14,8 @@ public:
     AUser(std::string name, double balance, int type);
     ~AUser();
     void dump(std::ostream& os);
-    std::deque<Product*>& getCart();
+    std::deque<Product*>& getCart();//getter for cart
 private:
-    std::deque<Product*> cart;
+    std::deque<Product*> cart;//deque containing a user's items
 };
 #endif

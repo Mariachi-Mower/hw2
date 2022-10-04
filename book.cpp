@@ -18,6 +18,8 @@ book::~book(){
 }
 
 std::set<std::string> book::keywords() const{
+  //gets the set containing every key word's products;
+  //merges the sets together with set union.
     std::set<std::string> final;
     final.insert(ISBN_);
     std::set<std::string> temp = parseStringToWords(author_);
