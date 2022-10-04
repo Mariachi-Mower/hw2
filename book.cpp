@@ -31,8 +31,7 @@ std::set<std::string> book::keywords() const{
 
 
 std::string book::displayString() const{
-    std::string final = name_ + " " + "Author: " + author_ + " ISBN: " + ISBN_ + " ";
-    final = final + " " + std::to_string(price_) + " " + std::to_string(qty_) + " left.";
+    std::string final = name_ + "\n" + "Author: " + author_ + " ISBN: " + ISBN_ + "\n" + std::to_string(price_) + " " + std::to_string(qty_) + " left.";
     return final;
 }
 

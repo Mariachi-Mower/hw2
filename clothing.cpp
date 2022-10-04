@@ -32,7 +32,7 @@ std::set<std::string> clothing::keywords() const{
 }
 
 std::string clothing::displayString() const{
-    std::string final = name_ + " Size: " + size_ + " Brand: " + brand_ + " " + std::to_string(price_) + " " + std::to_string(qty_) + " left.";
+    std::string final = name_ + "\n" + " Size: " + size_ + " Brand: " + brand_ + "\n" + std::to_string(price_) + " " + std::to_string(qty_) + " left.";
     return final;
 }
 
