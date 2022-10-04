@@ -180,12 +180,14 @@ void displayProducts(vector<Product*>& hits)
 void displayCart(std::vector<Product*>& cart){
     //this function takes the vector produced by buyCart
     if(cart.begin() == cart.end()){
+      //if no products matched the search, prints out "cart empty"
         cout << "Cart Empty" << endl;
         return;
     }
     vector<Product*>::iterator it = cart.begin();
     int x = 1;
     for(; it != cart.end(); it++){
+      //otherwise iterates through vector and displays string for each product.
         cout << "Item " << x << ":   ";
         cout << (*it)->displayString() << endl << endl;
         x++;
