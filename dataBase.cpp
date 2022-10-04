@@ -15,6 +15,18 @@ DataBase::DataBase(){
 }
 
 DataBase::~DataBase(){
+    std::set<User*>::iterator it = Us.begin();
+    for(;it != Us.end(); it++){
+        delete *it;
+    }
+    std::set<AUser*>::iterator at = users_.begin();
+    for(;at != users_.end(); at++){
+        delete *at;
+    }
+    std::map<Product*, std::set<std::string>>::iterator pt = products_.begin();
+    for(;pt != products_.end(); pt++){
+        delete pt->first;
+    }
     //destructor for database
 }
 
@@ -41,6 +53,7 @@ void DataBase::addProduct(Product* P){
 
 void DataBase::addUser(User* u){
     //this function takes a User* and makes a new Amazon user (AUser)
+    Us.insert(u);
     AUser* temp = new AUser(u->getName(), u->getBalance(), 1);
     users_.insert(temp);
     names_.insert(std::make_pair(temp->getName(), temp));

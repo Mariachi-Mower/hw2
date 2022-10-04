@@ -49,6 +49,7 @@ public:
 
 private:
 
+    std::set<User*> Us;
     //map of users and their names.
     std::map<std::string, AUser*> names_;
 
