@@ -7,7 +7,7 @@
 
 
 book::book(const std::string category, const std::string name, double price, int qty, const std::string ISBN, const std::string author) : 
-    Product(category, name, price,qty),
+    Product(category, name, price, qty),
     ISBN_(ISBN),
     author_(author)
 {

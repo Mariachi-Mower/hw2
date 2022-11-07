@@ -11,13 +11,6 @@
 #include "util.h"
 #include "dataBase.h"
 
-//List of Tasks:
-//implement viewcart
-//  derive an amazon user with a deque of product*
-//  make a derived dump implementation to iterate through and dump cart.
-//  
-//implement addUser
-
 using namespace std;
 
 struct ProdNameSorter {
@@ -117,12 +110,14 @@ int main(int argc, char* argv[])
                 std::string username;
                 int index;
                 if((ss >> username >> index)){
-                    
                     if(index <= 0 || index > (int)hits.size()){
                         cout << "invalid request" << endl;
                         continue;
                     }
-                    
+                    else if(ds.getNames_().find(username) == ds.getNames_().end()){
+                        cout << "invalid request" << endl;
+                        continue;
+                    }
                     ds.addToCart(username, index, hits);
                 }
                 else{
@@ -143,9 +138,14 @@ int main(int argc, char* argv[])
             else if( cmd == "BUYCART"){
                 string username;
                 if((ss >> username)){
-                    ds.buyCart(username);
+                    //ds.buyCart(username);
                     std::vector<Product*> cart_ = ds.viewCart(username);
-                    displayCart(cart_);
+										if(*cart_.begin() == NULL){
+											cout << "Invalid username" << endl;
+											continue;
+										}
+										ds.buyCart(username);
+                    //displayCart(cart_);
                 }
                 else{
                     cout << "Invalid request" << endl;
@@ -186,11 +186,15 @@ void displayCart(std::vector<Product*>& cart){
         cout << "Cart Empty" << endl;
         return;
     }
+    else if(*cart.begin() == NULL){
+        cout << "Invalid username" << endl;
+        return;
+    }
     vector<Product*>::iterator it = cart.begin();
     int x = 1;
     for(; it != cart.end(); it++){
       //otherwise iterates through vector and displays string for each product.
-        cout << "Item " << x << ":   ";
+        cout << "Item " << x << ":   " << endl;
         cout << (*it)->displayString() << endl << endl;
         x++;
     }

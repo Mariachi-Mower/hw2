@@ -47,6 +47,8 @@ public:
     //does nothing when not in stock of not enough money to purchase.
     void buyCart(std::string username);
 
+    std::map<std::string, AUser*>& getNames_();
+
 private:
 
     std::set<User*> Us;

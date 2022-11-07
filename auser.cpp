@@ -20,7 +20,8 @@ AUser::~AUser()
 
 void AUser::dump(std::ostream& os){
     //dump's an Amazon user's name and information including cart after end of a test.
-    os << getName() << " " << std::setprecision(2) << std::fixed << getBalance() << "\n";
+    os << getName() << " " << (int)getBalance() << " " << getType() << "\n";
+    /*
     std::deque<Product*>::iterator it = cart.begin();
     os << "Cart Items: " << "\n";
     int lineNo = 1;
@@ -31,6 +32,7 @@ void AUser::dump(std::ostream& os){
         os << lineNo << ". " << (*it)->getName() << " " << "\n" << "\n";
         lineNo++;
     }
+    */
 }
 
 std::deque<Product*>& AUser::getCart(){

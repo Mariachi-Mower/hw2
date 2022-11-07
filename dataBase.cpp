@@ -57,7 +57,7 @@ void DataBase::addProduct(Product* P){
 void DataBase::addUser(User* u){
     //this function takes a User* and makes a new Amazon user (AUser)
     Us.insert(u);
-    AUser* temp = new AUser(u->getName(), u->getBalance(), 1);
+    AUser* temp = new AUser(u->getName(), u->getBalance(), u->getType());
     users_.insert(temp);
     names_.insert(std::make_pair(temp->getName(), temp));
 }
@@ -66,14 +66,21 @@ void DataBase::addUser(User* u){
 std::vector<Product*> DataBase::search(std::vector<std::string>& terms, int type){
     std::vector<std::string>::iterator it = terms.begin();
     std::map<std::string, std::set<Product*>>::iterator m = words_.begin();
-    std::set<Product*> mid;
+    std::set<Product*> mid = {};
+    std::vector<Product*> final = {};
     m = words_.find(*it);
+    if(m == words_.end()){
+				m = words_.find(*(++it));
+    }
     mid = m->second;
     it++;
     for(; it != terms.end(); it++){//for each term in the terms vector.
 
         m = words_.find(*it);//searches the map of keywords to find that keyword's products. Assuming the word exists.
         //m is the set of products for that keyword.
+        if(m == words_.end()){
+            break;//latest change
+        }
 
         if(type == 1){//if the user wanted an OR search.
             //the loop will union all sets containing a keyword in the vector.
@@ -86,38 +93,42 @@ std::vector<Product*> DataBase::search(std::vector<std::string>& terms, int type
             mid = setIntersection(mid, m->second);
         }
     }
-    std::vector<Product*> final;
     std::set<Product*>::iterator x = mid.begin();
-    for(; x != mid.end(); x++){
-        //this loop pushes the values in the set searched to a vector
-        //to match the return type.
-        final.push_back(*x);
+    if(x != mid.end()){
+        for(; x != mid.end(); x++){
+            //this loop pushes the values in the set searched to a vector
+            //to match the return type.
+            final.push_back(*x);
+        }
     }
     return final;
 }
 
 
 void DataBase::dump(std::ostream& ofile){
-    ofile << "<Products>" << "\n";
+    ofile << "<products>" << "\n";
     std::map<Product*, std::set<std::string>>::iterator it = products_.begin();
     //This function iterates through the map of products_ and key
     for(; it != products_.end(); it++){
         it->first->dump(ofile);
     }
     //iterates through every product int the products array and then outputs each of their individual dumps.
-    ofile << "</Products>"  << "\n" << "<Users>" << "\n";
+    ofile << "</products>"  << "\n" << "<users>" << "\n";
     std::set<AUser*>::iterator at = users_.begin();
     for(; at != users_.end(); at++){
         (*at)->dump(ofile);
     }
     //same for every user.
-    ofile << "</Users> " << "\n";
+    ofile << "</users> " << "\n";
 }
 
 
 void DataBase::addToCart(std::string username, int index, std::vector<Product*>& hits){
     //given the username an which index they chose
     std::map<std::string, AUser*>::iterator u = names_.find(username);//given a user's name finds a pointer to that user.
+    if(u == names_.end()){
+        return;
+    }
     std::vector<Product*>::iterator it = hits.begin();
     it += index -1;//finds the string at the index given in the vector.
     u->second->getCart().push_back(*it);
@@ -127,8 +138,12 @@ void DataBase::addToCart(std::string username, int index, std::vector<Product*>&
 
 std::vector<Product*> DataBase::viewCart(std::string username){
     std::map<std::string, AUser*>::iterator name = names_.find(username);//finds the AUser from the name provided.
+    std::vector<Product*> final = {};
+    if(name == names_.end()){
+        final.push_back(NULL);
+        return final;
+    }
     std::deque<Product*>::iterator it = name->second->getCart().begin();
-    std::vector<Product*> final;
     for(; it != name->second->getCart().end(); it++){//iterates through the AUser's cart
         final.push_back(*it);//pushes every value into a vector maintaining the cart's order.
     }
@@ -138,6 +153,9 @@ std::vector<Product*> DataBase::viewCart(std::string username){
 
 void DataBase::buyCart(std::string username){
     std::map<std::string, AUser*>::iterator name = names_.find(username);//finds the AUser from the name provided.
+    if(name == names_.end()){
+        return;
+    }
     std::deque<Product*>::iterator it = name->second->getCart().begin();
     while(it != name->second->getCart().end()){//iterates through the AUser's cart.
         it = name->second->getCart().begin();//at the start of every iteration gets an iterator to the start of the deque.
@@ -150,4 +168,10 @@ void DataBase::buyCart(std::string username){
         it++;
         //if statement that will end when 
     }
+}
+
+//std::map<std::string, Auser*>& getNames_()
+
+std::map<std::string, AUser*>& DataBase::getNames_(){
+    return names_;
 }

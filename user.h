@@ -14,6 +14,8 @@ public:
     std::string getName() const;
     void deductAmount(double amt);
     virtual void dump(std::ostream& os);
+    int getType() const;
+    //implement getType in either the auser or user cpp file. 
 
 private:
     std::string name_;

@@ -12,3 +12,7 @@ dataBase.o
 db_parser.o
 product.o
 user.o
+datatest.txt
+output.txt
+hw2_tests
+hw2_tests.tar.gz

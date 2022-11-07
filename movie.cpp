@@ -21,11 +21,15 @@ std::set<std::string> movie::keywords() const{
     //gets the set containing every key word's products;
     //merges the sets together with set union.
     std::set<std::string> final;
+    //final.insert(convToLower(genre_));
     std::set<std::string> temp = parseStringToWords(name_);
     final = setUnion(final, temp);
     temp = parseStringToWords(category_);
     final = setUnion(final, temp);
-    final.insert(convToLower(genre_));
+    temp = parseStringToWords(genre_);
+    final = setUnion(final, temp);
+    //temp = parseStringToWords(rating_);
+    //final = setUnion(final, temp);
     return final;
 }
 
